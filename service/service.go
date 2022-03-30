@@ -22,7 +22,7 @@ func (p *program) Stop(s service.Service) error {
 
 func InitDaemon() {
 	svcConfig := &service.Config{
-		Name:        "github.com/jibenliu/utMsgDaemon",
+		Name:        "utMsgDaemon",
 		DisplayName: "utcloud Service Test Daemon",
 		Description: "This is a test Daemon service.  It is designed to run well.",
 	}
