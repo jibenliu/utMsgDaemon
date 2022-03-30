@@ -8,8 +8,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-var stopped = make(chan struct{}, 1)
-
 func initDbusService() {
 	conn, err := dbus.SessionBus()
 	if err != nil {
@@ -64,10 +62,6 @@ func initDbusService() {
 	err = mp.Export(conn, utils.ServicePath)
 	if err != nil {
 		log.Fatalf("export service props to dbus fail:%v", err)
-		return
-	}
-	select {
-	case <-stopped:
 		return
 	}
 }
