@@ -1,22 +1,25 @@
 BINARY="demo"
 VERSION=0.0.1
 BUILD=`date +%F`
-SHELL := /bin/bash
+SHELL:=/bin/bash
 BINARY:=utMsgDaemon
 
-versionDir="github.com/iswbm/demo/utils"
-gitTag=$(shell git log --pretty=format:'%h' -n 1)
+versionDir="github.com/jibenliu/utMsgDaemon/service" #version注入目录
+osArch=${shell lsb_release -i --short}
+gitTag=$(shell git tag --sort=committerdate | tail -n 1)
 gitBranch=$(shell git rev-parse --abbrev-ref HEAD)
-buildDate=$(shell TZ=Asia/Shanghai date +%FT%T%z)
+buildTime=$(shell TZ=Asia/Shanghai date +%FT%T%z)
+goVersion=$(shell go env GOVERSION)
 gitCommit=$(shell git rev-parse --short HEAD)
 
-ldflags="-s -w -X ${versionDir}.version=${VERSION} -X ${versionDir}.gitBranch=${gitBranch} -X '${versionDir}.gitTag=${gitTag}' -X '${versionDir}.gitCommit=${gitCommit}' -X '${versionDir}.buildDate=${buildDate}'"
+ldflags="-s -w -X ${versionDir}.GoVersion=${goVersion} -X ${versionDir}.Version=${VERSION} -X ${versionDir}.GitBranch=${gitBranch} -X '${versionDir}.GitTag=${gitTag}' -X '${versionDir}.GitCommit=${gitCommit}' -X '${versionDir}.BuildTime=${buildTime}'"
 
 default: build
 
 build:
+	@echo ${gitBranch}
 	@echo "build the ${BINARY}"
-	@GOOS=linux GOARCH=amd64 go build -ldflags ${ldflags} -o  tmp/${BINARY}  -tags=jsoniter
+	@echo "the flag is: "${ldflags}
 	@go build -ldflags ${ldflags} -o  tmp/${BINARY}  -tags=jsoniter
 	@echo "build done."
 

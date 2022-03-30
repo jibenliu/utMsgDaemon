@@ -4,8 +4,8 @@ import (
 	"errors"
 	"github.com/godbus/dbus/v5"
 	"github.com/godbus/dbus/v5/introspect"
+	"github.com/jibenliu/utMsgDaemon/utils"
 	log "github.com/sirupsen/logrus"
-	"utMsgDaemon/utils"
 )
 
 var stopped = make(chan struct{}, 1)
