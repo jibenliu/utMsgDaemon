@@ -14,6 +14,15 @@ gitCommit=$(shell git rev-parse --short HEAD)
 
 ldflags="-s -w -X '${versionDir}.GoVersion=${goVersion}' -X '${versionDir}.Version=${VERSION}' -X '${versionDir}.GitBranch=${gitBranch}' -X '${versionDir}.GitTag=${gitTag}' -X '${versionDir}.GitCommit=${gitCommit}' -X '${versionDir}.BuildTime=${buildTime}'"
 
+help:
+	@echo "usage: make <option>"
+	@echo "options and effects:"
+	@echo "    help   : Show help"
+	@echo "    all    : Build multiple binary of this project"
+	@echo "    build  : Build the binary of this project for current platform"
+	@echo "    clean  : clean build directory and files of this project"
+	@echo "    rebuild: ReBuild the linux binary of this project"
+
 default: build
 
 build:
